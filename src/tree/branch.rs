@@ -53,7 +53,7 @@ impl GetPaintlist for Branch {
         &self,
         base_pos: (f32, f32),
         base_angle: f32,
-        rng: &mut ThreadRng,
+        rng: &mut ThreadRng
     ) -> PaintList {
         let l = self.age.sqrt();
         let angle = base_angle + self.angle + (UP_ROT - base_angle - self.angle).powi(3) * 0.02;
