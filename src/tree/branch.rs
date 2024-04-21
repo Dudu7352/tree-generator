@@ -2,7 +2,7 @@ use std::collections::LinkedList;
 
 use rand::rngs::ThreadRng;
 use svg::{
-    node::element::{path::Data, Path},
+    node::element::Line,
     Node,
 };
 
@@ -58,15 +58,16 @@ impl GetPaintlist for Branch {
         let l = self.age.sqrt();
         let angle = base_angle + self.angle + (UP_ROT - base_angle - self.angle).powi(3) * 0.02;
         let end_pos = (base_pos.0 + angle.cos() * l, base_pos.1 + angle.sin() * l);
-        let data = Data::new().move_to(base_pos).line_to(end_pos).close();
 
         let b: Box<dyn Node> = Box::new(
-            Path::new()
-                .set("fill", "none")
-                .set("d", data)
+            Line::new()
                 .set("stroke", branch_hex(rng))
+                .set("stroke-linecap", "round")
                 .set("stroke-width", self.age / 200.0)
-                .set("stroke-linecap", "round"),
+                .set("x1", base_pos.0)
+                .set("y1", base_pos.1)
+                .set("x2", end_pos.0)
+                .set("y2", end_pos.1)
         );
 
         let mut paint_list = PaintList {

@@ -2,7 +2,7 @@ use std::collections::LinkedList;
 
 use rand::{rngs::ThreadRng, Rng};
 use svg::{
-    node::element::{path::Data, Circle, Path},
+    node::element::{Circle, Line},
     Node,
 };
 
@@ -52,7 +52,6 @@ impl GetPaintlist for Twig {
         let l = self.age.sqrt();
         let angle = base_angle + self.angle + (UP_ROT - base_angle - self.angle).powi(3) * 0.02;
         let end_pos = (base_pos.0 + l * angle.cos(), base_pos.1 + l * angle.sin());
-        let data = Data::new().move_to(base_pos).line_to(end_pos).close();
         let circle_b: Box<dyn Node> = Box::new(
             Circle::new()
                 .set("r", 0.7)
@@ -61,12 +60,14 @@ impl GetPaintlist for Twig {
                 .set("fill", flower_hex(rng)),
         );
         let b: Box<dyn Node> = Box::new(
-            Path::new()
-                .set("fill", "none")
+            Line::new()
                 .set("stroke", branch_hex(rng))
-                .set("stroke-width", self.age / 200.0)
                 .set("stroke-linecap", "round")
-                .set("d", data),
+                .set("stroke-width", self.age / 200.0)
+                .set("x1", base_pos.0)
+                .set("y1", base_pos.1)
+                .set("x2", end_pos.0)
+                .set("y2", end_pos.1)
         );
         PaintList {
             flowers: Some(LinkedList::from([circle_b])),
