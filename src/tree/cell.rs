@@ -1,7 +1,10 @@
 use core::fmt::Debug;
 use rand::rngs::ThreadRng;
 
-use crate::{paint_list::{GetPaintlist, PaintList}, tree::leaf::Leaf};
+use crate::{
+    paint_list::{GetPaintlist, PaintList},
+    tree::leaf::Leaf,
+};
 
 use super::{branch::Branch, living::Living, twig::Twig};
 

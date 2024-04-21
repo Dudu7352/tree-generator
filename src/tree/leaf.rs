@@ -3,7 +3,10 @@ use std::collections::LinkedList;
 use rand::{rngs::ThreadRng, Rng};
 use svg::{node::element::Circle, Node};
 
-use crate::{color_gen::flower_hex, paint_list::{GetPaintlist, PaintList}};
+use crate::{
+    color_gen::flower_hex,
+    paint_list::{GetPaintlist, PaintList},
+};
 
 use super::{cell::Cell, living::Living, twig::Twig};
 
@@ -35,7 +38,12 @@ impl Living for Leaf {
 }
 
 impl GetPaintlist for Leaf {
-    fn get_paintlist(&self, base_pos: (f32, f32), base_angle: f32, rng: &mut ThreadRng) -> PaintList {
+    fn get_paintlist(
+        &self,
+        base_pos: (f32, f32),
+        _base_angle: f32,
+        rng: &mut ThreadRng,
+    ) -> PaintList {
         let circle = Circle::new()
             .set("r", 1.3)
             .set("cx", base_pos.0)

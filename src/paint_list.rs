@@ -9,5 +9,10 @@ pub struct PaintList {
 }
 
 pub trait GetPaintlist {
-    fn get_paintlist(&self, base_pos: (f32, f32), base_angle: f32, rng: &mut ThreadRng) -> PaintList;
+    fn get_paintlist(
+        &self,
+        base_pos: (f32, f32),
+        base_angle: f32,
+        rng: &mut ThreadRng,
+    ) -> PaintList;
 }

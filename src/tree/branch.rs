@@ -1,12 +1,16 @@
 use std::collections::LinkedList;
 
-use rand::{rngs::ThreadRng, Rng};
+use rand::rngs::ThreadRng;
 use svg::{
     node::element::{path::Data, Path},
     Node,
 };
 
-use crate::{color_gen::branch_hex, consts::UP_ROT, paint_list::{GetPaintlist, PaintList}};
+use crate::{
+    color_gen::branch_hex,
+    consts::UP_ROT,
+    paint_list::{GetPaintlist, PaintList},
+};
 
 use super::{cell::Cell, leaf::Leaf, living::Living, twig::Twig};
 
@@ -45,7 +49,12 @@ impl Living for Branch {
 }
 
 impl GetPaintlist for Branch {
-    fn get_paintlist(&self, base_pos: (f32, f32), base_angle: f32, rng: &mut ThreadRng) -> PaintList {
+    fn get_paintlist(
+        &self,
+        base_pos: (f32, f32),
+        base_angle: f32,
+        rng: &mut ThreadRng,
+    ) -> PaintList {
         let l = self.age.sqrt();
         let angle = base_angle + self.angle + (UP_ROT - base_angle - self.angle).powi(3) * 0.02;
         let end_pos = (base_pos.0 + angle.cos() * l, base_pos.1 + angle.sin() * l);

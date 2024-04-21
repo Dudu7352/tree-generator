@@ -14,7 +14,6 @@ use crate::{
 
 use super::{branch::Branch, cell::Cell, living::Living};
 
-
 #[derive(Debug, Default)]
 pub struct Twig {
     pub age: f32,
@@ -27,7 +26,7 @@ impl Twig {
         Self {
             age: base_age,
             mature_at: rng.gen_range(15.0..25.0),
-            angle: rng.gen_range(-0.35..0.35)*2.0,
+            angle: rng.gen_range(-0.35..0.35) * 2.0,
         }
     }
 }
@@ -44,7 +43,12 @@ impl Living for Twig {
 }
 
 impl GetPaintlist for Twig {
-    fn get_paintlist(&self, base_pos: (f32, f32), base_angle: f32, rng: &mut ThreadRng) -> PaintList {
+    fn get_paintlist(
+        &self,
+        base_pos: (f32, f32),
+        base_angle: f32,
+        rng: &mut ThreadRng,
+    ) -> PaintList {
         let l = self.age.sqrt();
         let angle = base_angle + self.angle + (UP_ROT - base_angle - self.angle).powi(3) * 0.02;
         let end_pos = (base_pos.0 + l * angle.cos(), base_pos.1 + l * angle.sin());
