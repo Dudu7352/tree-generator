@@ -22,11 +22,11 @@ pub struct Twig {
 }
 
 impl Twig {
-    pub fn new(rng: &mut ThreadRng, base_age: f32) -> Self {
+    pub fn new(rng: &mut ThreadRng, base_age: f32, custom_angle: Option<f32>) -> Self {
         Self {
             age: base_age,
             mature_at: rng.gen_range(15.0..25.0),
-            angle: rng.gen_range(-0.35..0.35) * 2.0,
+            angle: custom_angle.unwrap_or(rng.gen_range(-0.35..0.35) * 2.0),
         }
     }
 }

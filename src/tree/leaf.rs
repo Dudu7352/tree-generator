@@ -31,7 +31,7 @@ impl Living for Leaf {
         let old_age = self.age;
         self.age += time;
         if self.age > self.mature_at {
-            return Twig::new(rng, 0.0).evolve(rng, time + old_age - self.mature_at);
+            return Twig::new(rng, 0.0, None).evolve(rng, time + old_age - self.mature_at);
         }
         Cell::Leaf(self)
     }
