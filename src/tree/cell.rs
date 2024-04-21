@@ -3,7 +3,7 @@ use rand::rngs::ThreadRng;
 
 use crate::{
     paint_list::{GetPaintlist, PaintList},
-    tree::leaf::Leaf,
+    tree::leaf::Leaf, tree_config::TreeConfig,
 };
 
 use super::{branch::Branch, living::Living, twig::Twig};
@@ -46,11 +46,11 @@ impl Debug for Cell {
 }
 
 impl Living for Cell {
-    fn evolve(self, rng: &mut ThreadRng, time: f32) -> Cell {
+    fn evolve(self, rng: &mut ThreadRng, time: f32, tree_config: &TreeConfig) -> Cell {
         match self {
-            Cell::Leaf(v) => v.evolve(rng, time),
-            Cell::Twig(v) => v.evolve(rng, time),
-            Cell::Branch(v) => v.evolve(rng, time),
+            Cell::Leaf(v) => v.evolve(rng, time, tree_config),
+            Cell::Twig(v) => v.evolve(rng, time, tree_config),
+            Cell::Branch(v) => v.evolve(rng, time, tree_config),
         }
     }
 }

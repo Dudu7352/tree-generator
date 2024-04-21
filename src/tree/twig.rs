@@ -9,7 +9,7 @@ use svg::{
 use crate::{
     color_gen::{branch_hex, flower_hex},
     consts::UP_ROT,
-    paint_list::{GetPaintlist, PaintList},
+    paint_list::{GetPaintlist, PaintList}, tree_config::TreeConfig,
 };
 
 use super::{branch::Branch, cell::Cell, living::Living};
@@ -22,21 +22,21 @@ pub struct Twig {
 }
 
 impl Twig {
-    pub fn new(rng: &mut ThreadRng, base_age: f32, custom_angle: Option<f32>) -> Self {
+    pub fn new(rng: &mut ThreadRng, base_age: f32, max_angle: f32) -> Self {
         Self {
             age: base_age,
             mature_at: rng.gen_range(15.0..25.0),
-            angle: custom_angle.unwrap_or(rng.gen_range(-0.35..0.35) * 2.0),
+            angle: rng.gen_range((-max_angle/2.0)..(max_angle/2.0)) * 2.0,
         }
     }
 }
 
 impl Living for Twig {
-    fn evolve(mut self, rng: &mut ThreadRng, time: f32) -> Cell {
+    fn evolve(mut self, rng: &mut ThreadRng, time: f32, tree_config: &TreeConfig) -> Cell {
         let old_age = self.age;
         self.age += time;
         if self.age > self.mature_at {
-            return Branch::from(&mut self).evolve(rng, time + old_age - self.mature_at);
+            return Branch::from(&mut self).evolve(rng, time + old_age - self.mature_at, tree_config);
         }
         Cell::Twig(self)
     }

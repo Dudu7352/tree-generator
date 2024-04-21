@@ -9,7 +9,7 @@ use svg::{
 use crate::{
     color_gen::branch_hex,
     consts::UP_ROT,
-    paint_list::{GetPaintlist, PaintList},
+    paint_list::{GetPaintlist, PaintList}, tree_config::TreeConfig,
 };
 
 use super::{cell::Cell, leaf::Leaf, living::Living, twig::Twig};
@@ -37,11 +37,11 @@ impl From<&mut Twig> for Branch {
 }
 
 impl Living for Branch {
-    fn evolve(mut self, rng: &mut ThreadRng, time: f32) -> Cell {
+    fn evolve(mut self, rng: &mut ThreadRng, time: f32, tree_config: &TreeConfig) -> Cell {
         self.age += time;
         let mut new_children = LinkedList::new();
         for old_child in self.children {
-            new_children.push_back(Box::new(old_child.evolve(rng, time)));
+            new_children.push_back(Box::new(old_child.evolve(rng, time, tree_config)));
         }
         self.children = new_children;
         Cell::Branch(self)

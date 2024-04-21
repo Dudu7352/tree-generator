@@ -5,7 +5,7 @@ use svg::{node::element::Circle, Node};
 
 use crate::{
     color_gen::flower_hex,
-    paint_list::{GetPaintlist, PaintList},
+    paint_list::{GetPaintlist, PaintList}, tree_config::TreeConfig,
 };
 
 use super::{cell::Cell, living::Living, twig::Twig};
@@ -27,11 +27,11 @@ impl Leaf {
 }
 
 impl Living for Leaf {
-    fn evolve(mut self, rng: &mut ThreadRng, time: f32) -> Cell {
+    fn evolve(mut self, rng: &mut ThreadRng, time: f32, tree_config: &TreeConfig) -> Cell {
         let old_age = self.age;
         self.age += time;
         if self.age > self.mature_at {
-            return Twig::new(rng, 0.0, None).evolve(rng, time + old_age - self.mature_at);
+            return Twig::new(rng, 0.0, tree_config.max_branch_angle).evolve(rng, time + old_age - self.mature_at, tree_config);
         }
         Cell::Leaf(self)
     }

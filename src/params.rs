@@ -7,7 +7,7 @@ use clap::Parser;
     about = "Simple tree generator that outputs svg files"
 )]
 pub struct Params {
-    #[arg(short, long, default_value_t = 1.0)]
+    #[arg(short, long, default_value_t = 0.7)]
     /// describes the maximum angle in which new branches may diverge
     pub max_branch_angle: f32,
     #[arg(short, long, default_value_t = 1)]

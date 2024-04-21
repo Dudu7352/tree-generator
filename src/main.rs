@@ -26,7 +26,7 @@ fn main() {
     });
 
     for i in 1..=params.images {
-        cell = cell.evolve(&mut rng, params.time / params.images as f32);
+        cell = cell.evolve(&mut rng, params.time / params.images as f32, &tree_config);
 
         let mut document = Document::new().set("viewBox", (0, 0, 400, 400));
         let paint_list = cell.get_paintlist((200.0, 300.0), UP_ROT, &mut rng);
